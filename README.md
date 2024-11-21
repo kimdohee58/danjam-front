@@ -1,70 +1,66 @@
-npm # Getting Started with Create React App
+# danjam-backend
+### 1. **백엔드**:
+   - **Spring Boot**: 안정적인 REST API 서버 구현
+   - **Gradle**: 빌드 도구로 Gradle을 사용하여 프로젝트 관리
+   - **MySQL**: 데이터베이스 관리
+   - **Spring Security**: 로그인 및 인증을 위한 보안 관리 (FormLogin, OAuth, JWT)
+   - **JPA/MyBatis**: 데이터베이스 ORM을 위한 JPA 또는 MyBatis 사용
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### 2. **프론트엔드**:
+   - **React**: UI를 위한 JavaScript 라이브러리
+   - **Styled Components** (또는 Tailwind CSS/Bootstrap): 스타일링을 위한 CSS 라이브러리
+   - **react-calendar**: 예약 날짜를 선택할 수 있는 캘린더 컴포넌트
+   - **react-datepicker**: 날짜 선택을 위한 라이브러리
+   - **date-fns**: 날짜를 처리하기 위한 유틸리티 라이브러리
 
-## Available Scripts
+## 설치 방법
 
-In the project directory, you can run:
+### 1. **백엔드 (Spring Boot)**
+1. 레포지토리 클론하기:
+   ```bash
+   git clone https://github.com/kimdohee58/danjam-backend.git
+2. 프로젝트 디렉토리로 이동:
+   ```bash
+   cd danjam-backend
+3. Gradle 빌드:
+   ```bash
+   ./gradlew build
+4. MySQL 설정: MySQL 데이터베이스를 설정하고 application.properties 파일에 데이터베이스 연결 정보를 추가합니다.
+5. 서버 실행:
+   ```bash
+   ./gradlew bootRun
 
-### `npm start`
+### 2. **프론트엔드 (React)**
+1. 레포지토리 클론하기:
+   ```bash
+   git clone https://github.com/kimdohee58/danjam-frontend.git
+2. 프로젝트 디렉토리로 이동:
+   ```bash
+   cd danjam-frontend
+3. 의존성 설치:
+   ```bash
+   npm install
+4. 서버 실행:
+   ```bash
+   npm start
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 3. **캘린더 및 날짜 선택 기능 설치**
+1. react-calendar 설치:
+   ```bash
+   npm install react-calendar
+2. react-datepicker 설치:
+   ```bash
+   npm install react-datepicker
+3. date-fns 설치:
+   ```bash
+   npm install date-fns
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 사용법
+서버가 실행되면 웹 브라우저에서 아래 주소로 접속할 수 있습니다:
+- http://localhost:3000 (프론트엔드)
+- http://localhost:8080 (백엔드)
 
-### `npm test`
+## 문의
+프로젝트에 대해 질문이 있거나 피드백을 주고 싶다면 kimdohee58@gmail.com으로 연락 주세요.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+감사합니다!
