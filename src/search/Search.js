@@ -312,14 +312,23 @@ function Search(props) {
                     )}
                 </DatePickerWrapper>
 
+                {/*<PersonSelector>*/}
+                {/*    <PersonLabel onClick={toggleDropdown}>*/}
+                {/*        인원 {selectedPerson}*/}
+                {/*    </PersonLabel>*/}
+                {/*    <Dropdown open={dropdownOpen}>*/}
+                {/*        <DropdownItem onClick={() => handleGuestClick(-1)}>- {selectedPerson > 0 ? `(${selectedPerson - 1})` : '없음'}</DropdownItem>*/}
+                {/*        <DropdownItem onClick={() => handleGuestClick(1)}>+ {selectedPerson + 1}</DropdownItem>*/}
+                {/*    </Dropdown>*/}
+                {/*</PersonSelector>*/}
                 <PersonSelector>
-                    <PersonLabel onClick={toggleDropdown}>
+                    <PersonLabel>
                         인원 {selectedPerson}
                     </PersonLabel>
-                    <Dropdown open={dropdownOpen}>
-                        <DropdownItem onClick={() => handleGuestClick(-1)}>- {selectedPerson > 0 ? `(${selectedPerson - 1})` : '없음'}</DropdownItem>
-                        <DropdownItem onClick={() => handleGuestClick(1)}>+ {selectedPerson + 1}</DropdownItem>
-                    </Dropdown>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <Button onClick={() => handleGuestClick(-1)} disabled={selectedPerson <= 0}>-</Button>
+                        <Button onClick={() => handleGuestClick(1)}>+</Button>
+                    </div>
                 </PersonSelector>
 
                 <SubmitButton onClick={onSubmit}>검색</SubmitButton>
