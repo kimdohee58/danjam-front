@@ -22,108 +22,99 @@ const AppWrapper = styled.div`
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: ${colors.lightGray}; // Background color for the app
+    background-color: ${colors.lightGray};
+    margin: 0; // Reset default margin for the body
+
+    @media (max-width: 768px) {
+        padding: 0 16px;
+    }
 `;
 
 // Header Styling
 const Header = styled.header`
     background: ${colors.darkBlue};
-    padding: 16px 24px; // Added horizontal padding for better spacing
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px 30px; // Added vertical padding for better spacing
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     position: fixed;
     width: 100%;
     top: 0;
     left: 0;
     display: flex;
     align-items: center;
-    justify-content: space-between; // Distribute space between logo and buttons
+    justify-content: space-between;
     z-index: 1000;
     box-sizing: border-box;
-`;
 
-const HrLine = styled.hr`
-    background: rgb(240, 240, 240);
-    height: 1px;
-    border: 0;
+    @media (max-width: 768px) {
+        padding: 15px 20px;
+    }
 `;
 
 // ContentContainer Styling
 const ContentContainer = styled.div`
     display: flex;
-    align-items: center; // Vertically center align items
-    gap: 16px; // Space between buttons
+    align-items: center;
+    gap: 20px; // Increased space between elements for better flow
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;
-    padding: 0 24px;
+    padding: 20px;
     position: relative;
-    flex: 1; // Allow ContentContainer to take available space
+    flex: 1;
 `;
 
 // ButtonsWrapper Styling
 const ButtonsWrapper = styled.div`
     display: flex;
     align-items: center;
-    gap: 16px; // Space between buttons
-    margin-left: auto; // Push buttons to the right
+    gap: 20px;
+    margin-left: auto;
 `;
 
 // Logo Styling
 const Logo = styled.img`
-    height: 60px; // Adjust height to fit well within the header
+    height: 60px;
     cursor: pointer;
+
+    @media (max-width: 768px) {
+        height: 50px;
+    }
+`;
+
+// Button Styling (DropdownButton & BookingListButton)
+const ButtonBase = styled.button`
+    background: ${colors.darkBlue};
+    color: #ffffff;
+    border: none;
+    padding: 14px 28px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+        background: ${colors.mediumGrayBlue};
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    &:focus {
+        outline: none;
+    }
 `;
 
 // DropdownButton Styling
-const DropdownButton = styled(Button)`
-    background: ${colors.darkBlue}; /* Vibrant background color */
-    color: #ffffff; /* White text color */
-    border: none;
-    padding: 12px 24px; /* Adjust padding for better button size */
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600; /* Slightly bolder text for emphasis */
-    border-radius: 8px; /* Rounded corners */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-    transition: background 0.3s ease, box-shadow 0.3s ease; /* Smooth transition effects */
-
-    &:hover {
-        background: ${colors.mediumGrayBlue}; /* Hover color */
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover */
-    }
-
-    &:focus {
-        outline: none; /* Remove default focus outline */
-    }
+const DropdownButton = styled(ButtonBase)`
+    padding: 12px 24px; // Adjust padding for button size consistency
 `;
 
 // BookingListButton Styling
-const BookingListButton = styled(Button)`
-    background: ${colors.darkBlue}; /* Consistent background color */
-    color: #ffffff; /* White text color */
-    border: none;
-    padding: 12px 24px; /* Adjust padding */
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600; /* Slightly bolder text */
-    border-radius: 8px; /* Rounded corners */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-    transition: background 0.3s ease, box-shadow 0.3s ease; /* Smooth transition effects */
-
-    &:hover {
-        background: ${colors.mediumGrayBlue}; /* Hover color */
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover */
-    }
-
-    &:focus {
-        outline: none; /* Remove default focus outline */
-    }
+const BookingListButton = styled(ButtonBase)`
+    padding: 12px 24px;
 `;
 
 // DropdownMenu Styling
@@ -144,18 +135,21 @@ const DropdownMenu = styled.ul`
 
 // DropdownMenuItem Styling
 const DropdownMenuItem = styled.li`
-    padding: 12px 16px;
+    padding: 14px 20px; // More padding for easier clicks
 
     &:last-child {
         border-bottom: none;
     }
+    
     &:hover {
-        background-color: rgb(240,242,242);
+        background-color: rgb(240, 242, 242);
     }
+    
     a {
         color: ${colors.mediumGrayBlue};
         text-decoration: none;
     }
+    
     button {
         background: transparent;
         border: none;
@@ -169,16 +163,16 @@ const DropdownMenuItem = styled.li`
 
 // Main Content Styling
 const Main = styled.main`
-    padding: 80px 0 20px;  // Adjust padding to account for fixed header
-    flex: 1; // Ensures the main content takes up the remaining space
-    background-color: white; // Background color for the main content
+    padding: 100px 20px 30px;  // Adjust padding to account for fixed header
+    flex: 1;
+    background-color: white;
 `;
 
 // Footer Styling
 const Footer = styled.footer`
     background: ${colors.darkBlue};
     padding: 20px 0;
-    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
 `;
 
@@ -187,6 +181,7 @@ const FooterContent = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 20px;
 `;
 
 // FooterLinks Styling
@@ -204,6 +199,7 @@ const FooterLink = styled.li`
         color: ${colors.lightGrayBlue};
         text-decoration: none;
         font-size: 14px;
+
         &:hover {
             text-decoration: underline;
         }
@@ -224,14 +220,17 @@ const ModalOverlay = styled.div`
     z-index: 1000;
 `;
 
+// ModalContent Styling
 const ModalContent = styled.div`
     background: #ffffff;
-    padding: 20px;
+    padding: 24px;
     border-radius: 8px;
     position: relative;
-    max-width: 400px;
+    max-width: 500px;
+    width: 100%;
 `;
 
+// Modal Close Button Styling
 const ModalClose = styled.button`
     position: absolute;
     top: 10px;
@@ -245,9 +244,258 @@ const ModalClose = styled.button`
 
 // BookingListModal Styling
 const BookingListModal = styled(ModalContent)`
-    overflow: auto; // Allow scrolling if content overflows
-    padding: 20px; // Ensure padding for better spacing
+    overflow: auto;
+    padding: 20px;
+    max-height: 80vh; // Ensures modal content doesn't exceed screen height
 `;
+
+const HrLine = styled.hr`
+    background: rgb(240, 240, 240);
+    height: 1px;
+    border: 0;
+`;
+
+
+// // Colors
+// const colors = {
+//     darkBlueBlack: 'rgb(2, 13, 29)',
+//     lightGrayBlue: 'rgb(150, 161, 170)',
+//     mediumGrayBlue: 'rgb(93, 105, 118)',
+//     darkBlue: 'rgb(40, 53, 68)',
+//     lightGray: 'rgb(223, 226, 228)',
+// };
+//
+// // Wrapper for the entire layout
+// const AppWrapper = styled.div`
+//     display: flex;
+//     flex-direction: column;
+//     min-height: 100vh;
+//     background-color: ${colors.lightGray}; // Background color for the app
+// `;
+//
+// // Header Styling
+// const Header = styled.header`
+//     background: ${colors.darkBlue};
+//     padding: 16px 24px; // Added horizontal padding for better spacing
+//     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+//     position: fixed;
+//     width: 100%;
+//     top: 0;
+//     left: 0;
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between; // Distribute space between logo and buttons
+//     z-index: 1000;
+//     box-sizing: border-box;
+// `;
+//
+// const HrLine = styled.hr`
+//     background: rgb(240, 240, 240);
+//     height: 1px;
+//     border: 0;
+// `;
+//
+// // ContentContainer Styling
+// const ContentContainer = styled.div`
+//     display: flex;
+//     align-items: center; // Vertically center align items
+//     gap: 16px; // Space between buttons
+//     max-width: 1200px;
+//     margin: 0 auto;
+//     width: 100%;
+//     padding: 0 24px;
+//     position: relative;
+//     flex: 1; // Allow ContentContainer to take available space
+// `;
+//
+// // ButtonsWrapper Styling
+// const ButtonsWrapper = styled.div`
+//     display: flex;
+//     align-items: center;
+//     gap: 16px; // Space between buttons
+//     margin-left: auto; // Push buttons to the right
+// `;
+//
+// // Logo Styling
+// const Logo = styled.img`
+//     height: 60px; // Adjust height to fit well within the header
+//     cursor: pointer;
+// `;
+//
+// // DropdownButton Styling
+// const DropdownButton = styled(Button)`
+//     background: ${colors.darkBlue}; /* Vibrant background color */
+//     color: #ffffff; /* White text color */
+//     border: none;
+//     padding: 12px 24px; /* Adjust padding for better button size */
+//     cursor: pointer;
+//     font-size: 16px;
+//     font-weight: 600; /* Slightly bolder text for emphasis */
+//     border-radius: 8px; /* Rounded corners */
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+//     transition: background 0.3s ease, box-shadow 0.3s ease; /* Smooth transition effects */
+//
+//     &:hover {
+//         background: ${colors.mediumGrayBlue}; /* Hover color */
+//         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover */
+//     }
+//
+//     &:focus {
+//         outline: none; /* Remove default focus outline */
+//     }
+// `;
+//
+// // BookingListButton Styling
+// const BookingListButton = styled(Button)`
+//     background: ${colors.darkBlue}; /* Consistent background color */
+//     color: #ffffff; /* White text color */
+//     border: none;
+//     padding: 12px 24px; /* Adjust padding */
+//     cursor: pointer;
+//     font-size: 16px;
+//     font-weight: 600; /* Slightly bolder text */
+//     border-radius: 8px; /* Rounded corners */
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+//     transition: background 0.3s ease, box-shadow 0.3s ease; /* Smooth transition effects */
+//
+//     &:hover {
+//         background: ${colors.mediumGrayBlue}; /* Hover color */
+//         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover */
+//     }
+//
+//     &:focus {
+//         outline: none; /* Remove default focus outline */
+//     }
+// `;
+//
+// // DropdownMenu Styling
+// const DropdownMenu = styled.ul`
+//     list-style: none;
+//     padding: 0;
+//     margin: 5px 15px;
+//     position: absolute;
+//     top: 60px;
+//     right: 0;
+//     background: #ffffff;
+//     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+//     display: ${props => (props.show ? 'block' : 'none')};
+//     width: 230px;
+//     border-radius: 4px;
+//     z-index: 1000;
+// `;
+//
+// // DropdownMenuItem Styling
+// const DropdownMenuItem = styled.li`
+//     padding: 12px 16px;
+//
+//     &:last-child {
+//         border-bottom: none;
+//     }
+//     &:hover {
+//         background-color: rgb(240,242,242);
+//     }
+//     a {
+//         color: ${colors.mediumGrayBlue};
+//         text-decoration: none;
+//     }
+//     button {
+//         background: transparent;
+//         border: none;
+//         cursor: pointer;
+//         font-size: 16px;
+//         text-align: left;
+//         width: 100%;
+//         padding: 0;
+//     }
+// `;
+//
+// // Main Content Styling
+// const Main = styled.main`
+//     padding: 80px 0 20px;  // Adjust padding to account for fixed header
+//     flex: 1; // Ensures the main content takes up the remaining space
+//     background-color: white; // Background color for the main content
+// `;
+//
+// // Footer Styling
+// const Footer = styled.footer`
+//     background: ${colors.darkBlue};
+//     padding: 20px 0;
+//     box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+//     width: 100%;
+// `;
+//
+// // FooterContent Styling
+// const FooterContent = styled.div`
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+// `;
+//
+// // FooterLinks Styling
+// const FooterLinks = styled.ul`
+//     list-style: none;
+//     padding: 0;
+//     margin: 0;
+//     display: flex;
+// `;
+//
+// // FooterLink Styling
+// const FooterLink = styled.li`
+//     margin-left: 16px;
+//     a {
+//         color: ${colors.lightGrayBlue};
+//         text-decoration: none;
+//         font-size: 14px;
+//         &:hover {
+//             text-decoration: underline;
+//         }
+//     }
+// `;
+//
+// // Modal Styling
+// const ModalOverlay = styled.div`
+//     position: fixed;
+//     top: 0;
+//     left: 0;
+//     right: 0;
+//     bottom: 0;
+//     background: rgba(0, 0, 0, 0.5);
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     z-index: 1000;
+// `;
+//
+// const ModalContent = styled.div`
+//     background: #ffffff;
+//     padding: 20px;
+//     border-radius: 8px;
+//     position: relative;
+//     max-width: 400px;
+// `;
+//
+// const ModalClose = styled.button`
+//     position: absolute;
+//     top: 10px;
+//     right: 10px;
+//     background: transparent;
+//     border: none;
+//     font-size: 24px;
+//     cursor: pointer;
+//     color: ${colors.mediumGrayBlue};
+// `;
+//
+// // BookingListModal Styling
+// const BookingListModal = styled(ModalContent)`
+//     overflow: auto; // Allow scrolling if content overflows
+//     padding: 20px; // Ensure padding for better spacing
+// `;
 
 function Layout() {
     const [showModal, setShowModal] = useState(false);

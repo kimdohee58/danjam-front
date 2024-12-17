@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import DatePicker from 'react-datepicker';
-import { Button } from 'react-bootstrap';
-import { useLocation, useNavigate } from 'react-router-dom';
+import {Button} from 'react-bootstrap';
+import {useLocation, useNavigate} from 'react-router-dom';
 import List from './List';
 import SearchResult from './SearchResult';
 import styled from 'styled-components';
-import { addDays } from "date-fns";
+import {addDays} from "date-fns";
 
 // Styled components
 const Container = styled.div`
@@ -16,13 +16,26 @@ const Container = styled.div`
     padding: 30px;
     background: #f0f4f8;
     min-height: 100vh;
+    max-width: 1200px; /* 원하는 최대 너비 설정 */
+    margin: 0 auto; /* 중앙 정렬 */
+
+    @media (max-width: 768px) {
+        padding: 20px;
+        max-width: 100%;  /* 화면 크기에 맞게 전체 너비 사용 */
+    }
 `;
+
 
 const Title = styled.h1`
     cursor: pointer;
     margin-bottom: 30px;
     font-size: 2.5em;
     color: #333;
+    
+    @media (max-width: 768px) {
+        font-size: 2em;
+        margin-bottom: 20px;
+    }
 `;
 
 const SearchBar = styled.div`
@@ -34,8 +47,13 @@ const SearchBar = styled.div`
     background: white;
     border-radius: 20px;
     padding: 20px;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     position: relative;
+    
+    @media (max-width: 768px) {
+        flex-direction: column;
+        padding: 15px;
+    }
 `;
 
 const SelectWrapper = styled.div`
@@ -43,6 +61,11 @@ const SelectWrapper = styled.div`
     flex: 1;
     margin-right: 10px;
     min-width: 200px;
+    
+    @media (max-width: 768px) {
+        min-width: 150px;
+        margin-right: 0;
+    }
 `;
 
 const DatePickerWrapper = styled.div`
@@ -53,13 +76,11 @@ const DatePickerWrapper = styled.div`
     position: relative;
     margin: 0 10px;
     min-width: 200px;
-`;
-
-const PersonSelector = styled.div`
-    position: relative;
-    flex: 1;
-    margin-left: 10px;
-    min-width: 200px;
+    
+    @media (max-width: 768px) {
+        min-width: 150px;
+        margin: 10px 0;
+    }
 `;
 
 const SelectLabel = styled.div`
@@ -73,13 +94,19 @@ const SelectLabel = styled.div`
     border-radius: 30px;
     padding: 12px 20px;
     background-color: white;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: relative;
     user-select: none;
     margin-bottom: 5px;
     text-align: center;
+
     &:hover {
         background-color: #f8f8f8;
+    }
+
+    @media (max-width: 768px) {
+        padding: 10px 15px;
+        font-size: 1em;
     }
 `;
 
@@ -91,13 +118,17 @@ const CityList = styled.div`
     background: white;
     border: 1px solid #ddd;
     border-radius: 10px;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     width: 100%;
     max-height: 300px;
     overflow-y: auto;
     padding: 10px;
     box-sizing: border-box;
+
+    @media (max-width: 768px) {
+        max-height: 200px;
+    }
 `;
 
 const CityButton = styled.div`
@@ -109,11 +140,17 @@ const CityButton = styled.div`
     color: #333;
     cursor: pointer;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s;
     margin: 5px;
+
     &:hover {
         background-color: #f8f8f8;
+    }
+
+    @media (max-width: 768px) {
+        padding: 8px 12px;
+        font-size: 0.9em;
     }
 `;
 
@@ -128,15 +165,71 @@ const DatePickerLabel = styled.div`
     border-radius: 30px;
     padding: 12px 20px;
     background-color: white;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: relative;
     user-select: none;
     margin-bottom: 5px;
     width: 100%;
     max-width: 250px;
     text-align: center;
+
     &:hover {
         background-color: #f8f8f8;
+    }
+
+    @media (max-width: 768px) {
+        padding: 10px 15px;
+        font-size: 1em;
+        max-width: 200px;
+    }
+`;
+
+const Dropdown = styled.div`
+    display: ${props => props.open ? 'block' : 'none'};
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+
+    @media (max-width: 768px) {
+        padding: 8px;
+    }
+`;
+
+const DropdownItem = styled.div`
+    padding: 12px;
+    cursor: pointer;
+    border-radius: 6px;
+
+    &:hover {
+        background-color: #f8f8f8;
+    }
+
+    @media (max-width: 768px) {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+`;
+
+const PersonSelector = styled.div`
+    position: relative;
+    flex: 1;
+    margin-left: 10px;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+
+    @media (max-width: 768px) {
+        min-width: 120px;
     }
 `;
 
@@ -149,47 +242,67 @@ const PersonLabel = styled.div`
     color: #333;
     border: 1px solid #ddd;
     border-radius: 30px;
-    padding: 12px 20px;
+    padding: 8px 12px;
     background-color: white;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: relative;
     user-select: none;
-`;
-
-const Dropdown = styled.div`
-    display: ${props => props.open ? 'block' : 'none'};
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-    z-index: 1000;
+    margin-bottom: 5px;
+    text-align: center;
     width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
+    max-width: 150px;
+
+    @media (max-width: 768px) {
+        padding: 6px 10px;
+        font-size: 1em;
+        max-width: 130px;
+    }
 `;
 
-const DropdownItem = styled.div`
-    padding: 12px;
+const PersonButton = styled.button`
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ccc;
+    background-color: #f7f7f7;
     cursor: pointer;
-    border-radius: 6px;
-    &:hover {
-        background-color: #f8f8f8;
+    border-radius: 50%;
+    padding: 0;
+    font-size: 1.2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 0 6px;
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    @media (max-width: 768px) {
+        width: 28px;
+        height: 28px;
+        font-size: 1em;
     }
 `;
 
 const SubmitButton = styled(Button)`
-    margin-left: 10px;
+    margin-left: 20px;
     font-size: 1.1em;
     padding: 0.6em 2.5em;
     border-radius: 30px;
     background-color: #FF5A5F;
     border: none;
     color: white;
+    cursor: pointer;
+
     &:hover {
         background-color: #FF3A3F;
+    }
+
+    @media (max-width: 768px) {
+        font-size: 1em;
+        padding: 0.5em 2em;
     }
 `;
 
@@ -323,21 +436,20 @@ function Search(props) {
                 {/*</PersonSelector>*/}
                 <PersonSelector>
                     <PersonLabel>
-                        인원 {selectedPerson}
+                        인원
+                        <PersonButton onClick={() => handleGuestClick(-1)}
+                                      disabled={selectedPerson <= 0}>-</PersonButton>{selectedPerson}
+                            <PersonButton onClick={() => handleGuestClick(1)}>+</PersonButton>
                     </PersonLabel>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <Button onClick={() => handleGuestClick(-1)} disabled={selectedPerson <= 0}>-</Button>
-                        <Button onClick={() => handleGuestClick(1)}>+</Button>
-                    </div>
                 </PersonSelector>
 
                 <SubmitButton onClick={onSubmit}>검색</SubmitButton>
             </SearchBar>
 
-            <div style={{ marginTop: '20px', width: '100%', maxWidth: '1400px' }}>
+            <div style={{marginTop: '20px', width: '100%', maxWidth: '1400px'}}>
                 {search.city === '선택' && search.checkIn === '' && search.checkOut === '' && search.person === 0
-                    ? <List userInfo={userInfo} />
-                    : <SearchResult search={search} userInfo={userInfo} />}
+                    ? <List userInfo={userInfo}/>
+                    : <SearchResult search={search} userInfo={userInfo}/>}
             </div>
         </Container>
     );
